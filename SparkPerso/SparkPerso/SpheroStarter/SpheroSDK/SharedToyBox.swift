@@ -57,7 +57,6 @@ extension SharedToyBox:ToyBoxListener{
                 toyBox.connect(toy: bolt)
             }
         }
-        
     }
     
     func toyBox(_ toyBox: ToyBox, readied toy: Toy) {
@@ -119,7 +118,5 @@ extension SharedToyBox:ToyBoxListener{
     func toyBox(_ toyBox: ToyBox, putAway toy: Toy) {
         print("put away")
     }
-    
-    
 }
 

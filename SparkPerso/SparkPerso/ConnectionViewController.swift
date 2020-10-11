@@ -27,8 +27,6 @@ class ConnectionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-       
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -50,15 +48,13 @@ class ConnectionViewController: UIViewController {
     
     // SPHERO CONNECTION
     @IBAction func connectionSpheroButtonClicked(_ sender: Any) {
-        SharedToyBox.instance.searchForBoltsNamed(["SB-808F"]) { err in
+        SharedToyBox.instance.searchForBoltsNamed(["SB-42C1", "SB-08C9", "SB-5D1C"]) { err in
             if err == nil {
                 self.connectionStateSpheroLabel.text = "Connected"
             }
         }
     }
-    
 }
-
 
 // SPARK CONNECTION
 extension ConnectionViewController {
@@ -103,7 +99,6 @@ extension ConnectionViewController {
         if let model = newProduct.model {
             self.connectionStateLabel.text = "\(model) is connected \n"
             Spark.instance.airCraft = DJISDKManager.product() as? DJIAircraft
-            
         }
         
         //Updates the product's firmware version - COMING SOON

@@ -22,7 +22,6 @@ class SpheroSensorControlViewController: UIViewController {
             case .Rond: return [0.0,0.0,1.0]
             }
         }
-        
     }
     
     var neuralNet:FFNN? = nil
@@ -56,9 +55,36 @@ class SpheroSensorControlViewController: UIViewController {
             DispatchQueue.main.async {
                 
                 if self.isRecording || self.isPredicting {
+            
                     if let acceleration = data.accelerometer?.filteredAcceleration {
                         // PAS BIEN!!!
                         currentAccData.append(contentsOf: [acceleration.x!, acceleration.y!, acceleration.z!])
+                        
+                        var stick = (x: 0.0, y: 0.0)
+                        
+                        if acceleration.x! >= 0.25 {
+                    
+                            stick.x = -0.5
+                        } else if acceleration.x! <= -0.25 {
+                   
+                            stick.x = 0.5
+                        }
+                        
+                        if acceleration.y! >= 0.25 {
+                       
+                            stick.y = -0.5
+                        } else if acceleration.y! <= -0.25 {
+                       
+                            stick.y = 0.5
+                        }
+                        
+                        print(stick)
+                     
+                        let sum = abs(acceleration.y!) + abs(acceleration.z!) + abs(acceleration.x!)
+                        
+                        if sum > 3.5 {
+                            print("ohwohw")
+                        }
                         
                         let dataToDisplay: double3 = [acceleration.x!, acceleration.y!, acceleration.z!]
                         self.acceleroChart.add(dataToDisplay)

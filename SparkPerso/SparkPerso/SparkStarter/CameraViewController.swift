@@ -57,16 +57,19 @@ class CameraViewController: UIViewController {
         
         self.prev1?.snapshotThumnnail { (image) in
             if let img = image {
-                print(img.size)
+              
                 self.extractedFrameImageView.image = img
                 
+                let prediction = ImageRecognition.shared.predictUsingCoreML(image: img)
+                print(prediction?.1)
                 
-                if let dataImg = UIImagePNGRepresentation(img){
-                    let strId = UUID().uuidString
-                    var url = getDocumentsDirectory()
-                    let imgUrl = url.appendingPathComponent("MonNom"+strId+".png")
-                    try! dataImg.write(to: imgUrl)
-                }
+//
+//                if let dataImg = UIImagePNGRepresentation(img){
+//                    let strId = UUID().uuidString
+//                    var url = getDocumentsDirectory()
+//                    let imgUrl = url.appendingPathComponent("MonNom"+strId+".png")
+//                    try! dataImg.write(to: imgUrl)
+//                }
                 
             }
         }
@@ -185,7 +188,7 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController:DJIVideoFeedListener {
     func videoFeed(_ videoFeed: DJIVideoFeed, didUpdateVideoData videoData: Data) {
-        print([UInt8](videoData).count)
+        
         videoData.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
             prev1?.push(UnsafeMutablePointer(mutating: bytes), length: Int32(videoData.count))
             prev2?.push(UnsafeMutablePointer(mutating: bytes), length: Int32(videoData.count))

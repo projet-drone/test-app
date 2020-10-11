@@ -35,6 +35,8 @@ class SpheroDirectionViewController: UIViewController {
             $0.setStabilization(state: SetStabilization.State.on)
             $0.setCollisionDetection(configuration: .enabled)
         }
+        print("here")
+        
         SharedToyBox.instance.bolts.map{
             $0.onCollisionDetected = { collisionData in
                 boltCollision.append(true)
@@ -58,7 +60,7 @@ class SpheroDirectionViewController: UIViewController {
         SharedToyBox.instance.bolt?.sensorControl.interval = 1
         SharedToyBox.instance.bolt?.setStabilization(state: SetStabilization.State.off)
         SharedToyBox.instance.bolt?.sensorControl.onDataReady = { data in
-            print(data.accelerometer!)
+            // print(data.accelerometer!)
         }
     }
     
@@ -72,6 +74,7 @@ class SpheroDirectionViewController: UIViewController {
     
     @IBAction func headingValueChanged(_ sender: UISlider) {
         currentHeading = Double(sender.value)
+        print(currentHeading)
         SharedToyBox.instance.bolts.map{ $0.stopRoll(heading: currentHeading) }
         //SharedToyBox.instance.bolt?.stopRoll(heading: currentHeading)
     }

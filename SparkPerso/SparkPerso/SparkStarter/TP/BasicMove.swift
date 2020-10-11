@@ -34,6 +34,10 @@ class SpheroMove:BasicMove {
     init(heading:Double, duration: Float, speed: Float) {
         super.init(direction: .front, duration: duration, speed: speed)
         self.heading = heading
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // your code here
+        }
     }
 }
 

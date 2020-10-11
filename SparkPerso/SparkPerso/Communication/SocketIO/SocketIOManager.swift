@@ -21,7 +21,7 @@ class SocketIOManager {
         }
         
         static func debugContext() -> Ctx {
-            return Ctx(ip: "169.254.27.200", port: "3000", modeVerbose: false)
+            return Ctx(ip: "192.168.1.16", port: "3000", modeVerbose: false)
         }
     }
     
@@ -29,10 +29,13 @@ class SocketIOManager {
     
     var manager:SocketManager? = nil
     var socket:SocketIOClient? = nil
+    
+    var isConnected:Bool? = nil
         
     func setup(ctx:Ctx = Ctx.debugContext()) {
         manager = SocketManager(socketURL: URL(string: ctx.fullIp())!, config: [.log(ctx.modeVerbose), .compress])
         socket = manager?.defaultSocket
+      
     }
     
     func connect(callBack:@escaping ()->()) {

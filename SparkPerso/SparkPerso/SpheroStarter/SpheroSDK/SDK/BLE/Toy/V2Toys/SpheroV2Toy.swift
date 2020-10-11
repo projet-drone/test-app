@@ -39,6 +39,18 @@ class SpheroV2Toy: Toy, SensorControlProvider, Aimable, Collidable, DriveRollabl
         core.send(GetBatteryVoltageCommand())
     }
     
+    // get sphero object by identifier
+    public func getSpheroById(testedID: UUID, spheros: [BoltToy]) -> BoltToy? {
+        var spheroReturned:BoltToy?
+        
+        for sphero in spheros {
+            if testedID == sphero.identifier {
+                spheroReturned = sphero
+            }
+        }
+        return spheroReturned
+    }
+    
     public func setCollisionDetection(configuration: CollisionConfiguration) {
         core.send(ConfigureCollisionDetectionV2(configuration: configuration))
     }
@@ -89,6 +101,8 @@ class SpheroV2Toy: Toy, SensorControlProvider, Aimable, Collidable, DriveRollabl
         let intHeading = UInt16(heading.positiveRemainder(dividingBy: 360.0))
         core.send(DriveWithHeadingCommand(speed: 0, heading: intHeading, flags: [.fastTurnMode]))
     }
+    
+   
 
     func toyCore(_ toyCore: SpheroV2ToyCore, didReceiveCommandResponse response: CommandResponseV2) {
         switch response {
